@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/muffin")
 public class MuffinController {
     private MuffinService service;
@@ -26,22 +24,23 @@ public class MuffinController {
         return new ResponseEntity<>(service.index(), HttpStatus.OK);
     }
 
-    @GetMapping("/show")
-    public ResponseEntity<Muffin> show(@RequestParam Long id) {
+    @GetMapping("{id}")
+    public ResponseEntity<Muffin> show(@PathVariable Long id) {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
-    @GetMapping("/create")
-    public ResponseEntity<Muffin> create(@RequestParam Muffin baker) {
+    @PostMapping("/create")
+    public ResponseEntity<Muffin> create(@RequestBody Muffin baker) {
         return new ResponseEntity<>(service.create(baker), HttpStatus.CREATED);
     }
 
-    @GetMapping("/update")
-    public ResponseEntity<Muffin> update(@RequestParam Long id, Muffin baker) {
+    @PutMapping("{id}")
+    public ResponseEntity<Muffin> update(@PathVariable Long id,@RequestBody Muffin baker) {
         return new ResponseEntity<>(service.update(id, baker), HttpStatus.OK);
     }
 
-    @GetMapping("/destroy") public ResponseEntity<Boolean> destroy(@RequestParam Long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<Boolean> destroy(@PathVariable Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 }

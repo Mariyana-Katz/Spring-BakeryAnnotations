@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 
-@NoRepositoryBean
+@Repository
 public interface BakerRepository extends CrudRepository<Baker, Long> {
 }
